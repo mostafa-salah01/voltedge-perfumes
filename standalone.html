@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VoltEdge | دار العطور الملكية الفاخرة</title>
+  <meta name="description" content="متجر VoltEdge للعطور الفاخرة والبخور والعود الملكي - رحلة عطرية تجسد الفخامة والأناقة المطلقة.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              canvas: '#FBF9F5',
+              dark: '#2A2421',
+              secondary: '#5A4636',
+              gold: '#D4AF37',
+              goldHover: '#B89327',
+              cream: '#F4EFE6'
+            }
+          },
+          fontFamily: {
+            cairo: ['Cairo', 'sans-serif'],
+            tajawal: ['Tajawal', 'sans-serif'],
+            serifBrand: ['"Playfair Display"', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #FBF9F5;
+      color: #2A2421;
+      font-family: 'Tajawal', sans-serif;
+      overflow-x: hidden;
+    }
+    .text-glow {
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.65), 0 1px 2px rgba(0, 0, 0, 0.85);
+    }
+    .page-fade {
+      animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .card-zoom:hover img {
+      transform: scale(1.08);
+    }
+    .logo-blend {
+      mix-blend-mode: multiply;
+    }
+  </style>
+</head>
+<body class="selection:bg-brand-gold/30 selection:text-brand-dark min-h-screen flex flex-col justify-between">
+
+  <!-- 1. شريط التنقل العلوي الثابت (Sticky Navbar) -->
+  <header class="sticky top-0 z-50 bg-[#FBF9F5]/90 backdrop-blur-md border-b border-[#2A2421]/10 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- الشعار على اليسار -->
+      <a href="#/home" class="flex items-center gap-3 group">
+        <img 
+          src="images/logo.jfif" 
+          alt="شعار VoltEdge" 
+          class="h-10 w-auto object-contain logo-blend"
+          onerror="this.style.display='none'; document.getElementById('logoFallback').classList.remove('hidden');"
+        >
+        <span id="logoFallback" class="font-serifBrand text-2xl sm:text-3xl font-bold tracking-wider text-brand-dark group-hover:text-brand-gold transition-colors">
+          VoltEdge
+        </span>
+      </a>
+
+      <!-- روابط الأقسام على اليمين (Desktop) -->
+      <nav class="hidden md:flex items-center gap-8 font-cairo text-sm font-bold">
+        <a href="#/home" data-nav="#/home" class="nav-link py-2 border-b-2 border-transparent transition-all">الرئيسية</a>
+        <a href="#/men" data-nav="#/men" class="nav-link py-2 border-b-2 border-transparent transition-all">عطور رجالية</a>
+        <a href="#/women" data-nav="#/women" class="nav-link py-2 border-b-2 border-transparent transition-all">عطور نسائية</a>
+        <a href="#/oud" data-nav="#/oud" class="nav-link py-2 border-b-2 border-transparent transition-all">بذور وعود</a>
+        <a href="#/exclusive" data-nav="#/exclusive" class="nav-link py-2 border-b-2 border-transparent transition-all">مجموعات حصرية</a>
+      </nav>
+
+      <!-- إجراءات الهيدر: السلة والهمبرغر -->
+      <div class="flex items-center gap-3">
+        <a href="#/cart" class="relative p-2.5 rounded-full hover:bg-[#2A2421]/5 text-brand-dark transition-colors" title="سلة المشتريات" aria-label="السلة">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119.993z" />
+          </svg>
+          <span id="cartCountBadge" class="absolute top-1 left-1 bg-brand-gold text-brand-dark font-extrabold text-[11px] w-5 h-5 rounded-full flex items-center justify-center shadow-md">0</span>
+        </a>
+
+        <!-- زر الموبايل -->
+        <button id="mobileMenuBtn" class="md:hidden p-2 text-brand-dark" aria-label="القائمة">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- قائمة الموبايل الجانبية -->
+  <div id="mobileDrawer" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs transition-opacity duration-300 opacity-0 pointer-events-none">
+    <div id="mobilePanel" class="fixed inset-y-0 right-0 max-w-xs w-full bg-[#FBF9F5] shadow-2xl p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300">
+      <div class="space-y-6">
+        <div class="flex items-center justify-between border-b border-[#2A2421]/10 pb-4">
+          <span class="font-serifBrand text-2xl font-bold text-brand-dark">VoltEdge</span>
+          <button id="closeMobileBtn" class="p-1 text-brand-dark text-xl font-bold">✕</button>
+        </div>
+        <nav class="flex flex-col gap-4 font-cairo text-base font-bold">
+          <a href="#/home" class="mobile-nav-link py-2 text-brand-dark hover:text-brand-gold border-b border-[#2A2421]/5">الرئيسية</a>
+          <a href="#/men" class="mobile-nav-link py-2 text-brand-dark hover:text-brand-gold border-b border-[#2A2421]/5">عطور رجالية</a>
+          <a href="#/women" class="mobile-nav-link py-2 text-brand-dark hover:text-brand-gold border-b border-[#2A2421]/5">عطور نسائية</a>
+          <a href="#/oud" class="mobile-nav-link py-2 text-brand-dark hover:text-brand-gold border-b border-[#2A2421]/5">بذور وعود</a>
+          <a href="#/exclusive" class="mobile-nav-link py-2 text-brand-dark hover:text-brand-gold border-b border-[#2A2421]/5">مجموعات حصرية</a>
+          <a href="#/cart" class="mobile-nav-link py-2 text-brand-gold font-extrabold flex items-center justify-between">
+            <span>سلة التسوق</span>
+            <span id="mobileCartCount" class="bg-brand-gold text-brand-dark px-2 py-0.5 rounded-full text-xs">0</span>
+          </a>
+        </nav>
+      </div>
+      <div class="pt-6 border-t border-[#2A2421]/10 text-xs text-brand-secondary">
+        دار العطور الملكية · الفخامة المطلقة
+      </div>
+    </div>
+  </div>
+
+  <!-- الحاوية الديناميكية للصفحات الست (SPA View Mount) -->
+  <main id="app-view" class="flex-1 w-full page-fade"></main>
+
+  <!-- الفوتر الموحد: النص فوق صورة hero-banner مع Overlay داكن 85% -->
+  <footer class="relative w-full overflow-hidden bg-brand-dark text-white border-t border-brand-gold/20">
+    <img 
+      src="images/hero-banner.jfif" 
+      alt="خلفية دار العطور" 
+      class="absolute inset-0 w-full h-full object-cover object-center filter brightness-75 scale-105" 
+      loading="lazy"
+    >
+    <div class="absolute inset-0 bg-gradient-to-t from-[#140F0D]/95 via-[#2A2421]/85 to-[#2A2421]/75"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-white/10">
+        
+        <!-- العلامة والنبذة -->
+        <div class="md:col-span-5 space-y-4 text-right">
+          <div class="font-serifBrand text-3xl font-bold tracking-wider text-brand-gold">VoltEdge</div>
+          <p class="text-sm text-white/80 max-w-sm leading-relaxed font-tajawal text-glow">
+            دار العطور والبخور الراقية. نبتكر عطراً ليس مجرد رائحة، بل هوية ملكية وانطباع يدوم في ذاكرة كل من تقابلهم.
+          </p>
+          <div class="flex items-center gap-3 pt-2">
+            <!-- أيقونات اجتماعية شكلية -->
+            <a href="#" class="w-9 h-9 rounded-full bg-white/10 hover:bg-brand-gold hover:text-brand-dark text-white flex items-center justify-center transition-all" aria-label="Instagram">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/></svg>
+            </a>
+            <a href="#" class="w-9 h-9 rounded-full bg-white/10 hover:bg-brand-gold hover:text-brand-dark text-white flex items-center justify-center transition-all" aria-label="X">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- الروابط السريعة -->
+        <div class="md:col-span-3 space-y-3 font-cairo text-right">
+          <h5 class="text-sm font-bold text-brand-gold uppercase tracking-wider">أقسام الدار</h5>
+          <ul class="space-y-2 text-sm text-white/80">
+            <li><a href="#/home" class="hover:text-brand-gold transition-colors">الرئيسية</a></li>
+            <li><a href="#/men" class="hover:text-brand-gold transition-colors">عطور رجالية</a></li>
+            <li><a href="#/women" class="hover:text-brand-gold transition-colors">عطور نسائية</a></li>
+            <li><a href="#/oud" class="hover:text-brand-gold transition-colors">بذور وعود</a></li>
+            <li><a href="#/exclusive" class="hover:text-brand-gold transition-colors">مجموعات حصرية</a></li>
+          </ul>
+        </div>
+
+        <!-- خدمة العملاء والضمان -->
+        <div class="md:col-span-4 space-y-3 font-cairo text-right">
+          <h5 class="text-sm font-bold text-brand-gold uppercase tracking-wider">خدمة العملاء والضمان</h5>
+          <p class="text-sm text-white/80">شحن سريع مجاني لكافة المحافظات وضمان ذهبي للأصالة 100%.</p>
+          <div class="pt-2 text-xs text-white/60">
+            الدفع متاح بفودافون كاش، إنستاباي، والتحويل البنكي المعتمد.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-white/60 gap-4">
+        <p>© 2026 VoltEdge Perfumes. جميع الحقوق محفوظة.</p>
+        <p class="font-serifBrand tracking-widest text-brand-gold">THE ART OF LUXURY PERFUMERY</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- إشعار التوست (Toast Notification) -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-[#1D1816] text-white px-5 py-3.5 rounded-xl shadow-2xl border border-brand-gold/40 flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="w-6 h-6 rounded-full bg-brand-gold text-brand-dark flex items-center justify-center font-bold text-xs">✓</div>
+    <p id="toastMessage" class="text-sm font-semibold font-cairo">تمت الإضافة إلى السلة</p>
+  </div>
+
+  <!-- سكربت التطبيق الكامل: إدارة الصفحات، السلة، التفاعل -->
+  <script>
+    // ═════════════════ قاعدة بيانات المنتجات (الصور الخمسة المعتمدة فقط) ═════════════════
+    const PRODUCTS = {
+      bestSellers: [
+        { id: 1, name: "عطر 'كهرُمان' الملكي", price: 499, rating: 5.0, image: "images/prod-1.jfif", note: "عنبر بلوري نادر ومسك أبيض" },
+        { id: 2, name: "كسرات عود فاخرة", price: 750, rating: 5.0, image: "images/prod-2.jfif", note: "عود موروكي سوبر طبيعي غني بالدهن" },
+        { id: 3, name: "عطر 'شرقي' للجنسين", price: 389, rating: 5.0, image: "images/prod-3.jfif", note: "خشب الأرز والهيل والزعفران" },
+        { id: 4, name: "مبخرة عصريّة مع بخور", price: 599, rating: 4.6, image: "images/prod-4.jfif", note: "تصميم معماري ذهبي وفحم عالي النقاء" },
+      ],
+      men: [
+        { id: 101, name: "عطر سيفرين إمبيريال", price: 549, rating: 5.0, image: "images/prod-3.jfif", category: "woody", note: "أخشاب الغاياك وفيتيفر مدخن" },
+        { id: 102, name: "كهرُمان نوار الملكي", price: 620, rating: 4.9, image: "images/prod-1.jfif", category: "oriental", note: "عنبر داكن وتبغ كوبي معتق" },
+        { id: 103, name: "إميرالد ليدر الفاخر", price: 480, rating: 5.0, image: "images/prod-3.jfif", category: "woody", note: "جلود إيطالية وهيل غواتيمالي" },
+        { id: 104, name: "فانتوم وودز المركز", price: 425, rating: 4.8, image: "images/prod-1.jfif", category: "fresh", note: "صندل استوائي وليمون سرديني" },
+        { id: 105, name: "عود كراون برايفيه", price: 790, rating: 5.0, image: "images/prod-2.jfif", category: "oriental", note: "كسرات دهن عود قديم" },
+        { id: 106, name: "سلطان العود الأزرق", price: 699, rating: 4.9, image: "images/prod-4.jfif", category: "oriental", note: "بخور ملوكي ولبان حوجري" },
+      ],
+      women: [
+        { id: 201, name: "عطر روز نوبل المخملي", price: 460, rating: 5.0, image: "images/prod-1.jfif", category: "floral", note: "ورد جوري دمشقي مع كمثرى فرنسية" },
+        { id: 202, name: "فيلفيت أوركيد الملكي", price: 520, rating: 4.9, image: "images/prod-3.jfif", category: "vanilla", note: "أوركيد أسود وعسل بري دافئ" },
+        { id: 203, name: "فانيلا دي لوميير", price: 390, rating: 5.0, image: "images/prod-1.jfif", category: "vanilla", note: "فانيليا بوربونية مكرملة" },
+        { id: 204, name: "بلانش مسك النقي", price: 440, rating: 4.9, image: "images/prod-3.jfif", category: "musk", note: "أزهار القطن ومسك أبيض نقي" },
+        { id: 205, name: "توليب رويال الفواح", price: 495, rating: 5.0, image: "images/prod-4.jfif", category: "floral", note: "أزهار التوليب وتوت بري حلو" },
+        { id: 206, name: "رين دي سيلين الخاصة", price: 680, rating: 5.0, image: "images/prod-2.jfif", category: "musk", note: "بخور زهري فاخر مع مسك غزال" },
+      ],
+      oud: [
+        { id: 301, name: "كسرات عود موروكي نخب أول", price: 750, rating: 5.0, image: "images/prod-2.jfif", note: "أوقية عود موروكي غني بالدهن الكثيف" },
+        { id: 302, name: "تولة دهن عود هندي قديم", price: 890, rating: 5.0, image: "images/prod-1.jfif", note: "معتق 15 سنة برائحة سويتية عميقة" },
+        { id: 303, name: "مبخرة عصرية بهيكل هندسي", price: 599, rating: 4.6, image: "images/prod-4.jfif", note: "مبخرة وموزع عيدان برائحة تدوم" },
+        { id: 304, name: "المبخرة الذكية المحمولة", price: 680, rating: 4.9, image: "images/prod-4.jfif", note: "تسخين سيراميكي فوري بدون فحم" },
+        { id: 305, name: "صندوق عود كلمنتان مالينو", price: 820, rating: 5.0, image: "images/prod-2.jfif", note: "رائحة باردة فواحة للمجالس الراقية" },
+        { id: 306, name: "رقائق عود تراد الحريري", price: 640, rating: 4.8, image: "images/prod-3.jfif", note: "خشب طبيعي مستخلص يدويًا" },
+      ],
+      exclusive: [
+        { id: 401, name: "صندوق النخبة الملكي (Grand Coffret)", price: 1450, image: "images/hero-banner.jfif", badge: "إصدار مرقم", desc: "عطر كهرُمان + تولة دهن عود + أوقية موروكي في صندوق خشبي مطعم بالنحاس" },
+        { id: 402, name: "ثلاثية نوكتورن الذهبية (Trio)", price: 1150, image: "images/prod-3.jfif", badge: "مجموعة 3 قوارير", desc: "3 زجاجات سعة 50 مل تجمع بين العنبر، الزهور والجلود لكل أوقات اليوم" },
+        { id: 403, name: "طقم الضيافة والبخور الملكي", price: 920, image: "images/prod-4.jfif", badge: "طقم الضيافة", desc: "مبخرة هندسية بتشطيب ذهبي + عبوتان من رقائق العود وملقط مذهب فاخر" },
+      ]
+    };
+
+    // ═════════════════ إدارة السلة ═════════════════
+    let cart = [];
+    try {
+      const saved = localStorage.getItem('voltedge_cart_v2');
+      if (saved) cart = JSON.parse(saved);
+    } catch(e) { cart = []; }
+
+    function saveCart() {
+      try { localStorage.setItem('voltedge_cart_v2', JSON.stringify(cart)); } catch(e) {}
+      updateCartBadges();
+    }
+
+    function addToCart(id, name, price, image) {
+      const item = cart.find(x => x.id === id);
+      if (item) item.quantity += 1;
+      else cart.push({ id, name, price, image, quantity: 1 });
+      saveCart();
+      showToast(`تمت إضافة "${name}" إلى السلة`);
+    }
+
+    function changeQty(id, delta) {
+      const item = cart.find(x => x.id === id);
+      if (!item) return;
+      item.quantity += delta;
+      if (item.quantity <= 0) cart = cart.filter(x => x.id !== id);
+      saveCart();
+      if (window.location.hash === '#/cart') renderCartPage();
+    }
+
+    function removeCartItem(id) {
+      cart = cart.filter(x => x.id !== id);
+      saveCart();
+      if (window.location.hash === '#/cart') renderCartPage();
+    }
+
+    function updateCartBadges() {
+      const count = cart.reduce((sum, i) => sum + i.quantity, 0);
+      const b1 = document.getElementById('cartCountBadge');
+      const b2 = document.getElementById('mobileCartCount');
+      if (b1) b1.textContent = count;
+      if (b2) b2.textContent = count;
+    }
+
+    let toastTimer;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      const tm = document.getElementById('toastMessage');
+      if (!t || !tm) return;
+      clearTimeout(toastTimer);
+      tm.textContent = msg;
+      t.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+      t.classList.add('translate-y-0', 'opacity-100');
+      toastTimer = setTimeout(() => {
+        t.classList.remove('translate-y-0', 'opacity-100');
+        t.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+      }, 2600);
+    }
+
+    // ═════════════════ توليد كرت المنتج (القاعدة: الكرت كله صورة والنص فوقها) ═════════════════
+    function renderProductCard(p) {
+      return `
+        <div class="card-zoom group relative aspect-[3/4] rounded-2xl overflow-hidden shadow-lg transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl">
+          <!-- الصورة تملأ الكرت بالكامل -->
+          <img 
+            src="${p.image}" 
+            alt="${p.name}" 
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out"
+            loading="lazy"
+          >
+          
+          <!-- طبقة تدرج لضمان وضوح النصوص -->
+          <div class="absolute inset-0 bg-gradient-to-t from-[#1A1412]/95 via-[#1A1412]/45 to-transparent"></div>
+
+          <!-- شارة التقييم أعلى الكرت -->
+          <div class="absolute top-3.5 right-3.5 z-10 bg-[#1D1816]/75 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-bold text-amber-400 flex items-center gap-1 border border-white/10">
+            <span>★</span>
+            <span class="text-white">${p.rating.toFixed(1)}</span>
+          </div>
+
+          <!-- المحتوى النصي فوق الصورة في الأسفل -->
+          <div class="absolute inset-x-0 bottom-0 p-5 z-10 flex flex-col justify-end text-right">
+            <h3 class="font-cairo text-lg font-bold text-white text-glow mb-1 group-hover:text-brand-gold transition-colors">
+              ${p.name}
+            </h3>
+            ${p.note ? `<p class="text-xs text-white/70 font-tajawal mb-3 line-clamp-1">${p.note}</p>` : ''}
+            
+            <div class="flex items-center justify-between pt-2 border-t border-white/15">
+              <div class="text-white font-cairo font-extrabold text-base sm:text-lg">
+                <span>${p.price}</span> <span class="text-xs font-normal text-brand-gold">ج.م</span>
+              </div>
+              <button 
+                onclick="addToCart(${p.id}, '${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.image}')"
+                class="px-3.5 py-2 rounded-xl bg-brand-gold hover:bg-brand-goldHover text-brand-dark font-cairo text-xs font-extrabold shadow-md transition-all active:scale-95 whitespace-nowrap"
+              >
+                إضافة للسلة
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ═════════════════ قوالب الصفحات الست (النص دائمًا داخل وخلفية الصورة) ═════════════════
+
+    // [1] الرئيسية #/home
+    function templateHome() {
+      return `
+        <!-- الهيرو بملء الشاشة: الصورة خلفية كاملة والنص فوقها من اليمين -->
+        <section class="relative min-h-[92vh] flex items-center overflow-hidden">
+          <img 
+            src="images/hero-banner.jfif" 
+            alt="رحلة عطرية فاخرة VoltEdge" 
+            class="absolute inset-0 w-full h-full object-cover object-center filter brightness-90 scale-100"
+          >
+          <!-- تدرج داكن شفاف جهة النص (RTL من اليمين) -->
+          <div class="absolute inset-0 bg-gradient-to-l from-[#2A2421]/95 via-[#2A2421]/60 to-transparent"></div>
+
+          <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20">
+            <div class="max-w-2xl text-right space-y-6">
+              
+              <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold text-brand-gold">
+                <span class="w-2 h-2 rounded-full bg-brand-gold animate-pulse"></span>
+                <span>VoltEdge · عطور فاخرة ملكية لعام 2026</span>
+              </div>
+
+              <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-cairo text-white leading-[1.2] text-glow">
+                رحلة عطريّة: <br>
+                <span class="text-brand-gold">اكتشف الفخامة المطلقة</span>
+              </h1>
+
+              <p class="text-base sm:text-lg text-white/90 font-tajawal leading-relaxed text-glow">
+                تجسيد للأناقة والجاذبية من VoltEdge. توليفات ساحرة من دهن العود العتيق، أندر نفحات الكهرمان والزهور النادرة التي تروي قصتك أينما حللت.
+              </p>
+
+              <div class="pt-4 flex flex-wrap items-center gap-4">
+                <a href="#/exclusive" class="px-8 py-3.5 rounded-xl bg-brand-gold hover:bg-brand-goldHover text-brand-dark font-cairo font-extrabold text-sm shadow-xl transition-all transform hover:-translate-y-0.5">
+                  تسوق الآن
+                </a>
+                <a href="#/men" class="px-7 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-cairo font-bold text-sm backdrop-blur-md border border-white/30 transition-all">
+                  اكتشف المجموعات
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- قسم الأكثر مبيعًا: 4 كروت (الكرت كله صورة والنص فوقها) -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-widest text-brand-gold font-cairo">مختارات النخبة</span>
+              <h2 class="text-3xl sm:text-4xl font-extrabold font-cairo text-brand-dark mt-1">الأكثر مبيعاً</h2>
+            </div>
+            <p class="text-sm text-brand-secondary font-tajawal max-w-md">أيقونات عطرية استثنائية صُممت لتدوم وتبهر من حولك.</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            ${PRODUCTS.bestSellers.map(renderProductCard).join('')}
+          </div>
+        </section>
+
+        <!-- قسم تصنيفات: 4 بلاطات كبيرة، كل بلاطة صورة كاملة والعنوان فوقها -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div class="text-center max-w-xl mx-auto mb-10">
+            <h2 class="text-3xl font-extrabold font-cairo text-brand-dark">عوالم الدار العطرية</h2>
+            <p class="text-sm text-brand-secondary mt-1">اختر التشكيلة التي تعبر عن حضورك الفريد</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- بلاطة 1 -->
+            <a href="#/men" class="group relative h-96 rounded-2xl overflow-hidden shadow-xl">
+              <img src="images/prod-1.jfif" alt="عطور رجالية" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1D1816]/95 via-[#1D1816]/40 to-transparent"></div>
+              <div class="absolute inset-x-0 bottom-0 p-6 text-right">
+                <span class="text-xs text-brand-gold font-bold">هيبة وفخامة</span>
+                <h3 class="font-cairo text-2xl font-extrabold text-white text-glow mt-1">عطور رجالية</h3>
+                <span class="inline-block mt-3 text-xs font-bold text-white underline group-hover:text-brand-gold">استكشف التشكيلة ←</span>
+              </div>
+            </a>
+
+            <!-- بلاطة 2 -->
+            <a href="#/women" class="group relative h-96 rounded-2xl overflow-hidden shadow-xl">
+              <img src="images/prod-3.jfif" alt="عطور نسائية" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1D1816]/95 via-[#1D1816]/40 to-transparent"></div>
+              <div class="absolute inset-x-0 bottom-0 p-6 text-right">
+                <span class="text-xs text-brand-gold font-bold">سحر وأنوثة</span>
+                <h3 class="font-cairo text-2xl font-extrabold text-white text-glow mt-1">عطور نسائية</h3>
+                <span class="inline-block mt-3 text-xs font-bold text-white underline group-hover:text-brand-gold">استكشف التشكيلة ←</span>
+              </div>
+            </a>
+
+            <!-- بلاطة 3 -->
+            <a href="#/oud" class="group relative h-96 rounded-2xl overflow-hidden shadow-xl">
+              <img src="images/prod-2.jfif" alt="بذور وعود" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1D1816]/95 via-[#1D1816]/40 to-transparent"></div>
+              <div class="absolute inset-x-0 bottom-0 p-6 text-right">
+                <span class="text-xs text-brand-gold font-bold">عبق الأصالة</span>
+                <h3 class="font-cairo text-2xl font-extrabold text-white text-glow mt-1">بذور وعود</h3>
+                <span class="inline-block mt-3 text-xs font-bold text-white underline group-hover:text-brand-gold">استكشف التشكيلة ←</span>
+              </div>
+            </a>
+
+            <!-- بلاطة 4 -->
+            <a href="#/exclusive" class="group relative h-96 rounded-2xl overflow-hidden shadow-xl">
+              <img src="images/hero-banner.jfif" alt="مجموعات حصرية" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1D1816]/95 via-[#1D1816]/40 to-transparent"></div>
+              <div class="absolute inset-x-0 bottom-0 p-6 text-right">
+                <span class="text-xs text-brand-gold font-bold">إصدارات محدودة</span>
+                <h3 class="font-cairo text-2xl font-extrabold text-white text-glow mt-1">مجموعات حصرية</h3>
+                <span class="inline-block mt-3 text-xs font-bold text-white underline group-hover:text-brand-gold">استكشف التشكيلة ←</span>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- لافتة عريضة: بصورة prod-2 كخلفية وعليها عبارة "العود… إرث لا يُنسى" وزر -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div class="relative h-80 sm:h-96 rounded-3xl overflow-hidden shadow-2xl flex items-center">
+            <img src="images/prod-2.jfif" alt="خلفية العود" class="absolute inset-0 w-full h-full object-cover filter brightness-75 scale-105" loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-l from-[#1B1411]/90 via-[#1B1411]/60 to-transparent"></div>
+            
+            <div class="relative z-10 p-8 sm:p-14 max-w-xl text-right space-y-4">
+              <span class="text-xs font-bold text-brand-gold tracking-widest uppercase">التقاليد الملكية</span>
+              <h2 class="text-3xl sm:text-4xl font-extrabold font-cairo text-white text-glow leading-snug">
+                العود… إرث لا يُنسى
+              </h2>
+              <p class="text-sm sm:text-base text-white/80 font-tajawal text-glow">
+                أندر رقائق العود الموروكي والكلمنتان مع أدهان العود العتيقة المقطرة يدوياً بنقاء مطلق.
+              </p>
+              <div class="pt-2">
+                <a href="#/oud" class="inline-block px-7 py-3 rounded-xl bg-brand-gold hover:bg-brand-goldHover text-brand-dark font-cairo font-bold text-sm shadow-lg transition-transform transform hover:-translate-y-0.5">
+                  تصفح نفائس العود
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- شريط الميزات: أيقونات ذهبية على خلفية زجاجية فوق صورة prod-3 المطموسة -->
+        <section class="relative py-16 overflow-hidden">
+          <img src="images/prod-3.jfif" alt="خلفية الميزات" class="absolute inset-0 w-full h-full object-cover filter blur-md brightness-50 scale-110" loading="lazy">
+          <div class="absolute inset-0 bg-[#2A2421]/75"></div>
+
+          <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-right space-y-2">
+                <div class="w-12 h-12 rounded-xl bg-brand-gold/20 text-brand-gold flex items-center justify-center font-bold text-xl">
+                  🚚
+                </div>
+                <h4 class="font-cairo text-lg font-bold text-white text-glow">شحن سريع ومجاني</h4>
+                <p class="text-xs text-white/80 leading-relaxed font-tajawal">توصيل مؤمن لكافة المحافظات خلال 24-48 ساعة في تغليف محكم.</p>
+              </div>
+
+              <div class="p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-right space-y-2">
+                <div class="w-12 h-12 rounded-xl bg-brand-gold/20 text-brand-gold flex items-center justify-center font-bold text-xl">
+                  🛡️
+                </div>
+                <h4 class="font-cairo text-lg font-bold text-white text-glow">منتجات أصلية 100%</h4>
+                <p class="text-xs text-white/80 leading-relaxed font-tajawal">زيوت عطرية طبيعية معتمدة ونقاء مطلق بدون أي شوائب صناعية.</p>
+              </div>
+
+              <div class="p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 text-right space-y-2">
+                <div class="w-12 h-12 rounded-xl bg-brand-gold/20 text-brand-gold flex items-center justify-center font-bold text-xl">
+                  🎁
+                </div>
+                <h4 class="font-cairo text-lg font-bold text-white text-glow">تغليف هدايا فاخر</h4>
+                <p class="text-xs text-white/80 leading-relaxed font-tajawal">علب مخملية وأشرطة حريرية وكارت إهداء خاص مخصص لمناسبتكم.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    // [2] عطور رجالية #/men
+    function templateMen() {
+      return `
+        <!-- بانر علوي ارتفاع 60vh: صورة hero-mens خلفية والعنوان فوقها -->
+        <section class="relative h-[60vh] min-h-[400px] flex items-center overflow-hidden">
+          <img src="images/hero-mens.jfif" alt="بانر العطور الرجالية" class="absolute inset-0 w-full h-full object-cover object-center filter brightness-75 scale-105">
+          <div class="absolute inset-0 bg-gradient-to-l from-[#1E1714]/95 via-[#1E1714]/60 to-transparent"></div>
+
+          <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-right">
+            <span class="text-xs font-bold text-brand-gold tracking-widest uppercase">التشكيلة الملكية</span>
+            <h1 class="text-4xl sm:text-5xl font-extrabold font-cairo text-white text-glow mt-1">عطور رجالية</h1>
+            <p class="text-sm sm:text-base text-white/80 font-tajawal max-w-xl mt-3 text-glow">
+              عطور خشبية وشرقية مخصصة للرجل العصري. مزيج عميق من خشب الصندل، التبغ الكوبي، والجلد الفاخر.
+            </p>
+          </div>
+        </section>
+
+        <!-- أدوات الفلترة والترتيب -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-[#2A2421]/10">
+            <!-- أزرار الفلترة -->
+            <div class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0" id="menFilterBar">
+              <button onclick="filterCatalog('men', 'all')" class="filter-btn-men px-4 py-2 rounded-xl text-xs font-bold font-cairo bg-brand-gold text-brand-dark transition-all">الكل</button>
+              <button onclick="filterCatalog('men', 'woody')" class="filter-btn-men px-4 py-2 rounded-xl text-xs font-bold font-cairo bg-white border border-[#2A2421]/10 text-brand-dark hover:border-brand-gold transition-all">خشبي</button>
+              <button onclick="filterCatalog('men', 'oriental')" class="filter-btn-men px-4 py-2 rounded-xl text-xs font-bold font-cairo bg-white border border-[#2A2421]/10 text-brand-dark hover:border-brand-gold transition-all">شرقي</button>
+              <button onclick="filterCatalog('men', 'fresh')" class="filter-btn-men px-4 py-2 rounded-xl text-xs font-bold font-cairo bg-white border border-[#2A2421]/10 text-brand-dark hover:border-brand-gold transition-all">منعش</button>
+            </div>
+
+            <!-- الترتيب بالسعر -->
+            <div class="flex items-center gap-2 w-full sm:w-auto justify-end text-xs font-cairo font-bold">
+              <span>الترتيب:</span>
+              <select onchange="sortCatalog('men', this.value)" class="p-2 rounded-xl border border-[#2A2421]/15 bg-white text-xs text-brand-dark focus:outline-none">
+                <option value="default">المميز أولاً</option>
+                <option value="price-asc">الأقل سعراً</option>
+                <option value="price-desc">الأعلى سعراً</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- شبكة 6 منتجات رجالية (الصورة تملأ الكرت بالكامل والنص فوقها) -->
+          <div id="menCatalogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-8">
+            ${PRODUCTS.men.map(renderProductCard).join('')}
+          </div>
+        </section>
+      `;
+    }
+
+    // [3] عطور نسائية #/women
+    function templateWomen() {
+      return `
+        <!-- بانر علوي 60vh من hero-womens والعنوان فوقه -->
+        <section class="relative h-[60vh] min-h-[400px] flex items-center overflow-hidden">
+          <img src="images/hero-womens.jfif" alt="بانر العطور النسائية" class="absolute inset-0 w-full h-full object-cover object-center filter brightness-75 scale-105">
+          <div class="absolute inset-0 bg-gradient-to-l from-[#1E1714]/95 via-[#1E1714]/60 to-transparent"></div>
+
+          <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-right">
+            <span class="text-xs font-bold text-brand-gold tracking-widest uppercase">الأنوثة المخملية</span>
+            <h1 class="text-4xl sm:text-5xl font-extrabold font-cairo text-white text-glow mt-1">عطور نسائية</h1>
+            <p class="text-sm sm:text-base text-white/80 font-tajawal max-w-xl mt-3 text-glow">
+              توليفات زهرية وسكرية ناعمة تأسر الحواس بالياسمين الدمشقي والفانيليا البوربونية والمسك.
+            </p>
+          </div>
+        </section>
+
+        <!-- فلاتر وترتيب النسائي -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-[#2A2421]/10">
+            <div class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0" id="womenFilterBar">
+              <button onclick="filterCatalog('women', 'all')" class="filter-btn-women px-4 py-2 rounded-xl text-xs font-bold font-cairo bg-brand-gold text-brand-dark transition-all">الكل</button>
+              <button onclick="filterCatalog('women', 'floral')" class="filter-btn-women px-4 py-2 rounded-xl text-xs font-bold font-cairo bg-white border border-[#2A2421]/10 text-brand-dark hover:border-brand-gold transition-all">زهري</button>
+              <button onclick="filterCatalog('women', 'vanilla')" class="filter-btn-women px-4 py-2 rounded-xl text-xs font-bold font-cairo bg-white border border-[#2A2421]/10 text-brand-dark hover:border-brand-gold transition-all">فانيلا</button>
+              <button onclick="filterCatalog('women', 'musk')" class="filter-btn-women px-4 py-2 rounded-xl text-xs font-bold font-cairo bg-white border border-[#2A2421]/10 text-brand-dark hover:border-brand-gold transition-all">مسكي</button>
+            </div>
+
+            <div class="flex items-center gap-2 w-full sm:w-auto justify-end text-xs font-cairo font-bold">
+              <span>الترتيب:</span>
+              <select onchange="sortCatalog('women', this.value)" class="p-2 rounded-xl border border-[#2A2421]/15 bg-white text-xs text-brand-dark focus:outline-none">
+                <option value="default">المميز أولاً</option>
+                <option value="price-asc">الأقل سعراً</option>
+                <option value="price-desc">الأعلى سعراً</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- شبكة 6 منتجات نسائية -->
+          <div id="womenCatalogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-8">
+            ${PRODUCTS.women.map(renderProductCard).join('')}
+          </div>
+        </section>
+      `;
+    }
+
+    // [4] بذور وعود #/oud
+    function templateOud() {
+      return `
+        <!-- بانر من hero-oud والعنوان فوقه -->
+        <section class="relative h-[60vh] min-h-[400px] flex items-center overflow-hidden">
+          <img src="images/hero-oud.jfif" alt="بانر العود والبخور" class="absolute inset-0 w-full h-full object-cover object-center filter brightness-75 scale-105">
+          <div class="absolute inset-0 bg-gradient-to-l from-[#1E1714]/95 via-[#1E1714]/60 to-transparent"></div>
+
+          <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-right">
+            <span class="text-xs font-bold text-brand-gold tracking-widest uppercase">التراث العريق</span>
+            <h1 class="text-4xl sm:text-5xl font-extrabold font-cairo text-white text-glow mt-1">بذور وعود وبخور</h1>
+            <p class="text-sm sm:text-base text-white/80 font-tajawal max-w-xl mt-3 text-glow">
+              أجود أنواع العود الطبيعي، أدهان العود المعتقة، والمباخر الهندسية الحديثة.
+            </p>
+          </div>
+        </section>
+
+        <!-- قسم قصة العود: خلفية صورة prod-2 مكبرة مع overlay والنص فوقها (3 فقرات + 3 أرقام مميزة) -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div class="relative rounded-3xl overflow-hidden shadow-2xl p-8 sm:p-14 text-right">
+            <img src="images/prod-2.jfif" alt="قصة العود" class="absolute inset-0 w-full h-full object-cover filter brightness-50 scale-110" loading="lazy">
+            <div class="absolute inset-0 bg-[#1D1614]/85"></div>
+
+            <div class="relative z-10 max-w-3xl space-y-6">
+              <span class="text-xs font-bold text-brand-gold tracking-widest uppercase">أسرار التقطير</span>
+              <h2 class="text-3xl sm:text-4xl font-extrabold font-cairo text-white text-glow">
+                رحلة خشب العود عبر القرون
+              </h2>
+              
+              <div class="space-y-3 text-sm text-white/85 font-tajawal leading-relaxed text-glow">
+                <p>1. ننتقي أشجار العود المغمورة بالدهن الطبيعي من غابات إندونيسيا والهند العتيقة التي تجاوزت أعمارها نصف قرن.</p>
+                <p>2. تُعالج الرقائق بحرفية متوارثة للتخلص التام من الخشب الأبيض ولضمان زبد العود ونقاوة الرائحة عند ملامسة الجمر.</p>
+                <p>3. يتم تقطير أدهان العود الملكية في أوانٍ نحاسية وتعتيقها تحت درجات حرارة محكومة لسنوات لتكسب عمقاً لا يضاهى.</p>
+              </div>
+
+              <!-- 3 أرقام مميزة -->
+              <div class="grid grid-cols-3 gap-4 pt-6 border-t border-white/20 text-center">
+                <div>
+                  <div class="font-cairo text-2xl sm:text-3xl font-extrabold text-brand-gold">100%</div>
+                  <div class="text-xs text-white/80 font-tajawal mt-1">عود طبيعي نقي</div>
+                </div>
+                <div>
+                  <div class="font-cairo text-2xl sm:text-3xl font-extrabold text-brand-gold">15+</div>
+                  <div class="text-xs text-white/80 font-tajawal mt-1">سنة تعتيق للأدهان</div>
+                </div>
+                <div>
+                  <div class="font-cairo text-2xl sm:text-3xl font-extrabold text-brand-gold">48h</div>
+                  <div class="text-xs text-white/80 font-tajawal mt-1">ثبات بخوري دائم</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- شبكة 6 منتجات عود ومباخر -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div class="mb-10 text-right">
+            <h3 class="text-2xl font-bold font-cairo text-brand-dark">مختارات العود والمباخر</h3>
+            <p class="text-xs text-brand-secondary mt-1">قطع نادرة مخصصة للمجالس والمناسبات الكبرى</p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            ${PRODUCTS.oud.map(renderProductCard).join('')}
+          </div>
+        </section>
+
+        <!-- قسم طريقة التبخير في 3 خطوات بخلفية صورة فاخرة والنص فوقها -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div class="relative rounded-3xl overflow-hidden shadow-2xl p-8 sm:p-12 text-right border border-brand-gold/20">
+            <img src="images/prod-4.jfif" alt="طريقة التبخير" class="absolute inset-0 w-full h-full object-cover filter brightness-50 scale-105" loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#140F0D]/95 via-[#1D1614]/85 to-[#1D1614]/75"></div>
+
+            <div class="relative z-10 space-y-8">
+              <div>
+                <span class="text-xs font-bold text-brand-gold tracking-widest uppercase">فن الضيافة الأصيلة</span>
+                <h3 class="font-cairo text-2xl sm:text-3xl font-extrabold text-white text-glow mt-1">طريقة التبخير الملكية في 3 خطوات</h3>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 space-y-3">
+                  <span class="text-3xl font-extrabold text-brand-gold font-cairo">01</span>
+                  <h4 class="font-cairo font-bold text-white text-glow text-lg">تهدئة الجمر</h4>
+                  <p class="text-xs text-white/80 font-tajawal leading-relaxed">اترك قرص الفحم ليهدأ وتتكون عليه طبقة رماد رقيقة لئلا يحترق العود سريعاً ويفقد زيوته العطرية الثمينة.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 space-y-3">
+                  <span class="text-3xl font-extrabold text-brand-gold font-cairo">02</span>
+                  <h4 class="font-cairo font-bold text-white text-glow text-lg">وضع الكسرة</h4>
+                  <p class="text-xs text-white/80 font-tajawal leading-relaxed">ضع الكسرة على الجهة الأقل دهناً لتسمح للدهن بالتبخر البطيء وإطلاق الزبد العطري الكثيف بأعلى نقاء.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 space-y-3">
+                  <span class="text-3xl font-extrabold text-brand-gold font-cairo">03</span>
+                  <h4 class="font-cairo font-bold text-white text-glow text-lg">نشر العبق</h4>
+                  <p class="text-xs text-white/80 font-tajawal leading-relaxed">مرر المبخرة في أرجاء المجلس مع إغلاق النوافذ 10 دقائق لتعليق ذرات العود في الأقمشة والمكان لأيام.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    // [5] مجموعات حصرية #/exclusive
+    function templateExclusive() {
+      return `
+        <!-- بانر hero-exclusive والعنوان فوقه -->
+        <section class="relative h-[60vh] min-h-[400px] flex items-center overflow-hidden">
+          <img src="images/hero-exclusive.jfif" alt="المجموعات الحصرية" class="absolute inset-0 w-full h-full object-cover object-center filter brightness-75 scale-105">
+          <div class="absolute inset-0 bg-gradient-to-l from-[#1E1714]/95 via-[#1E1714]/60 to-transparent"></div>
+
+          <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-right">
+            <span class="text-xs font-bold text-brand-gold tracking-widest uppercase">صناديق الهدايا الفاخرة</span>
+            <h1 class="text-4xl sm:text-5xl font-extrabold font-cairo text-white text-glow mt-1">مجموعات حصرية — إصدار محدود</h1>
+            <p class="text-sm sm:text-base text-white/80 font-tajawal max-w-xl mt-3 text-glow">
+              صناديق هدايا فاخرة تحتوي على أندر المزيجات العطرية وقوارير نيش مرقمة.
+            </p>
+          </div>
+        </section>
+
+        <!-- عداد تنازلي لعرض محدود بخلفية صورة فاخرة والنص فوقها -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div class="relative rounded-3xl overflow-hidden shadow-2xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 border border-brand-gold/30">
+            <img src="images/hero-exclusive.jfif" alt="عرض الإصدار الخاص" class="absolute inset-0 w-full h-full object-cover filter brightness-40 scale-105" loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-l from-[#140F0D]/95 via-[#1D1614]/85 to-[#1D1614]/75"></div>
+
+            <div class="relative z-10 text-right space-y-1">
+              <span class="text-xs text-brand-gold font-bold uppercase tracking-wider">عرض الإصدار الخاص الملكي</span>
+              <h3 class="font-cairo text-xl sm:text-2xl font-extrabold text-white text-glow">ينتهي الحجز الملكي قريباً</h3>
+              <p class="text-xs text-white/80 font-tajawal text-glow">خصم حصري وتغليف ملكي خاص مع كل طلب مجموعة فاخرة.</p>
+            </div>
+
+            <!-- مؤقت العداد -->
+            <div class="relative z-10 flex items-center gap-4 text-center font-cairo" id="countdownTimer">
+              <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl px-4 py-3 min-w-[70px]">
+                <div class="text-2xl font-bold text-brand-gold" id="cdDays">02</div>
+                <div class="text-[10px] text-white/80 font-tajawal">أيام</div>
+              </div>
+              <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl px-4 py-3 min-w-[70px]">
+                <div class="text-2xl font-bold text-brand-gold" id="cdHours">14</div>
+                <div class="text-[10px] text-white/80 font-tajawal">ساعة</div>
+              </div>
+              <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl px-4 py-3 min-w-[70px]">
+                <div class="text-2xl font-bold text-brand-gold" id="cdMins">35</div>
+                <div class="text-[10px] text-white/80 font-tajawal">دقيقة</div>
+              </div>
+              <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl px-4 py-3 min-w-[70px]">
+                <div class="text-2xl font-bold text-brand-gold" id="cdSecs">20</div>
+                <div class="text-[10px] text-white/80 font-tajawal">ثانية</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3 بطاقات هدايا كبيرة: كل بطاقة صورة كاملة والنص والسعر فوقها -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            ${PRODUCTS.exclusive.map(item => `
+              <div class="card-zoom group relative h-[520px] rounded-3xl overflow-hidden shadow-2xl flex flex-col justify-end p-8 text-right border border-white/15">
+                <img src="${item.image}" alt="${item.name}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#140F0D]/95 via-[#140F0D]/55 to-transparent"></div>
+
+                <div class="relative z-10 space-y-3">
+                  <span class="inline-block bg-brand-gold text-brand-dark px-3 py-1 rounded-full text-xs font-bold font-cairo">${item.badge}</span>
+                  <h3 class="font-cairo text-2xl font-extrabold text-white text-glow">${item.name}</h3>
+                  <p class="text-xs text-white/80 font-tajawal leading-relaxed">${item.desc}</p>
+                  
+                  <div class="flex items-center justify-between pt-4 border-t border-white/20">
+                    <div class="text-white font-cairo font-extrabold text-xl">
+                      <span>${item.price}</span> <span class="text-xs font-normal text-brand-gold">ج.م</span>
+                    </div>
+                    <button 
+                      onclick="addToCart(${item.id}, '${item.name.replace(/'/g, "\\'")}', ${item.price}, '${item.image}')"
+                      class="px-5 py-2.5 rounded-xl bg-brand-gold hover:bg-brand-goldHover text-brand-dark font-cairo text-xs font-extrabold shadow-lg transition-transform transform active:scale-95"
+                    >
+                      طلب الصندوق الملكي
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </section>
+
+        <!-- نموذج اشتراك بالبريد داخل قسم بخلفية صورة -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div class="relative rounded-3xl overflow-hidden shadow-2xl p-8 sm:p-14 text-center">
+            <img src="images/prod-1.jfif" alt="خلفية الاشتراك" class="absolute inset-0 w-full h-full object-cover filter brightness-50" loading="lazy">
+            <div class="absolute inset-0 bg-[#2A2421]/80"></div>
+
+            <div class="relative z-10 max-w-xl mx-auto space-y-4">
+              <span class="text-xs font-bold text-brand-gold uppercase tracking-wider">نادي النخبة العطري</span>
+              <h2 class="text-2xl sm:text-3xl font-extrabold font-cairo text-white text-glow">كن أول من يعلم بإصداراتنا النادرة</h2>
+              <p class="text-xs sm:text-sm text-white/80 font-tajawal">احصل على دعوات حصرية لتجربة العطور الملكية المحدودة قبل طرحها الرسمي.</p>
+
+              <form onsubmit="event.preventDefault(); alert('شكراً لانضمامكم إلى نادي VoltEdge الملكي!'); this.reset();" class="flex flex-col sm:flex-row gap-3 pt-2">
+                <input type="email" required placeholder="أدخل بريدك الإلكتروني" class="flex-1 px-4 py-3 rounded-xl bg-white/95 text-brand-dark text-sm focus:outline-none">
+                <button type="submit" class="px-7 py-3 rounded-xl bg-brand-gold hover:bg-brand-goldHover text-brand-dark font-cairo font-bold text-sm">
+                  انضمام الآن
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    // [6] السلة والدفع #/cart
+    let currentPaymentMethod = 'vodafone';
+    let uploadedReceiptDataUrl = null;
+
+    function templateCart() {
+      const total = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+
+      if (cart.length === 0) {
+        return `
+          <!-- حالة السلة الفارغة: صورة hero-banner مع نص وزر العودة -->
+          <section class="max-w-3xl mx-auto px-4 py-20 text-center">
+            <div class="relative h-[480px] rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center p-8 border border-white/15">
+              <img src="images/hero-banner.jfif" alt="سلة فارغة" class="absolute inset-0 w-full h-full object-cover filter brightness-50" loading="lazy">
+              <div class="absolute inset-0 bg-[#1F1714]/85"></div>
+
+              <div class="relative z-10 space-y-5 max-w-md text-glow">
+                <div class="w-16 h-16 rounded-full bg-brand-gold/20 text-brand-gold mx-auto flex items-center justify-center text-3xl font-bold border border-brand-gold/30">
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119.993z" />
+                  </svg>
+                </div>
+                <h2 class="font-cairo text-3xl font-extrabold text-white">سلتك الملكية فارغة حالياً</h2>
+                <p class="text-sm text-white/85 font-tajawal leading-relaxed">
+                  تفضل باستكشاف نفائس العطور الملكية، العود المعتق، والمجموعات الحصرية وأضف عطرك المفضل.
+                </p>
+                <div class="pt-2">
+                  <a href="#/home" class="inline-block px-8 py-3.5 rounded-xl bg-brand-gold hover:bg-brand-goldHover text-brand-dark font-cairo font-bold text-sm shadow-xl transition-transform hover:-translate-y-0.5">
+                    العودة للتسوق الآن
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+        `;
+      }
+
+      return `
+        <!-- بانر الهيدر لسلة المشتريات والدفع (الصورة خلفية والنص فوقها) -->
+        <section class="relative h-[38vh] min-h-[290px] flex items-center overflow-hidden">
+          <img src="images/hero-banner.jfif" alt="بانر سلة المشتريات والدفع" class="absolute inset-0 w-full h-full object-cover object-center filter brightness-75 scale-105">
+          <div class="absolute inset-0 bg-gradient-to-l from-[#1A1412]/95 via-[#1A1412]/70 to-transparent"></div>
+
+          <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-right">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold text-brand-gold mb-3">
+              <span class="w-2 h-2 rounded-full bg-brand-gold animate-pulse"></span>
+              <span>بوابة الدفع والتأكيد المباشر</span>
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold font-cairo text-white text-glow">
+              سلة التسوق و<span class="text-brand-gold">إتمام الطلب</span>
+            </h1>
+            <p class="text-sm sm:text-base text-white/85 font-tajawal max-w-xl mt-2 text-glow">
+              راجِع طلبك الملكي وأدخل بيانات التوصيل، ثم اختر وسيلة الدفع وأرفق إيصال التحويل لإتمام الحجز فوراً.
+            </p>
+          </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- العمود الأيمن: المنتجات + بيانات الشحن + طرق الدفع + إرفاق الإيصال -->
+            <div class="lg:col-span-7 space-y-6">
+              
+              <!-- 1. قائمة المنتجات المختارة -->
+              <div class="bg-white rounded-3xl p-6 shadow-sm border border-[#2A2421]/10 space-y-4">
+                <div class="flex items-center justify-between border-b border-[#2A2421]/10 pb-3">
+                  <h3 class="font-cairo font-bold text-lg text-brand-dark flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-full bg-brand-dark text-white text-xs flex items-center justify-center font-bold">1</span>
+                    المنتجات المختارة
+                  </h3>
+                  <span class="text-xs text-brand-secondary">${cart.reduce((s, i) => s + i.quantity, 0)} قطع في السلة</span>
+                </div>
+                
+                <div class="space-y-4">
+                  ${cart.map(item => `
+                    <div class="flex items-center gap-4 p-3.5 rounded-2xl bg-[#FBF9F5] border border-[#2A2421]/5 hover:border-brand-gold/40 transition-colors">
+                      <img src="${item.image}" alt="${item.name}" class="w-16 h-20 object-cover rounded-xl shadow-sm">
+                      <div class="flex-1 min-w-0 text-right">
+                        <h4 class="font-cairo font-bold text-sm text-brand-dark truncate">${item.name}</h4>
+                        <div class="text-brand-gold font-cairo font-bold text-sm mt-0.5">${item.price} ج.م</div>
+                        <div class="flex items-center gap-2 mt-2">
+                          <button onclick="changeQty(${item.id}, -1)" class="w-6 h-6 rounded-md bg-white border border-[#2A2421]/10 text-xs font-bold hover:bg-brand-gold hover:text-white transition-colors">-</button>
+                          <span class="text-xs font-bold px-1">${item.quantity}</span>
+                          <button onclick="changeQty(${item.id}, 1)" class="w-6 h-6 rounded-md bg-white border border-[#2A2421]/10 text-xs font-bold hover:bg-brand-gold hover:text-white transition-colors">+</button>
+                        </div>
+                      </div>
+                      <button onclick="removeCartItem(${item.id})" class="p-2 text-brand-secondary hover:text-red-600 transition-colors" title="حذف">
+                        ✕
+                      </button>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+
+              <!-- 2. نموذج بيانات التوصيل والشحن -->
+              <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-[#2A2421]/10 text-right space-y-5">
+                <div class="flex items-center gap-2 border-b border-[#2A2421]/10 pb-3">
+                  <span class="w-6 h-6 rounded-full bg-brand-dark text-white text-xs flex items-center justify-center font-bold">2</span>
+                  <h3 class="font-cairo font-bold text-lg text-brand-dark">بيانات المستلم وعنوان التوصيل</h3>
+                </div>
+                
+                <form id="checkoutOrderForm" onsubmit="handleFinalCheckout(event)" class="space-y-4">
+                  <div>
+                    <label class="block text-xs font-bold mb-1.5 text-brand-dark">الاسم الكامل ثلاثي *</label>
+                    <input type="text" id="custNameInput" required placeholder="مثال: عبد الرحمن محمد الشريف" class="w-full p-3 rounded-xl border border-[#2A2421]/15 text-sm focus:outline-none focus:border-brand-gold">
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-xs font-bold mb-1.5 text-brand-dark">رقم الهاتف للتواصل (مصر) *</label>
+                      <input type="tel" id="custPhoneInput" required placeholder="01XXXXXXXXX" pattern="^01[0-2,5]{1}[0-9]{8}$" title="يرجى إدخال رقم هاتف مصري صحيح مكون من 11 رقم" class="w-full p-3 rounded-xl border border-[#2A2421]/15 text-sm text-left dir-ltr focus:outline-none focus:border-brand-gold">
+                    </div>
+                    <div>
+                      <label class="block text-xs font-bold mb-1.5 text-brand-dark">المحافظة *</label>
+                      <select id="custCityInput" required class="w-full p-3 rounded-xl border border-[#2A2421]/15 text-sm bg-white focus:outline-none focus:border-brand-gold">
+                        <option value="القاهرة">القاهرة</option>
+                        <option value="الجيزة">الجيزة</option>
+                        <option value="الإسكندرية">الإسكندرية</option>
+                        <option value="الدقهلية / المنصورة">الدقهلية / المنصورة</option>
+                        <option value="الغربية / طنطا">الغربية / طنطا</option>
+                        <option value="الشرقية / الزقازيق">الشرقية / الزقازيق</option>
+                        <option value="البحر الأحمر / الغردقة">البحر الأحمر / الغردقة</option>
+                        <option value="محافظة أخرى">محافظة أخرى</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold mb-1.5 text-brand-dark">العنوان التفصيلي (الشارع، رقم العمارة، الشقة) *</label>
+                    <input type="text" id="custAddrInput" required placeholder="مثال: شارع التسعين الجنوبي، عمارة 42، التجمع الخامس" class="w-full p-3 rounded-xl border border-[#2A2421]/15 text-sm focus:outline-none focus:border-brand-gold">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold mb-1.5 text-brand-dark">ملاحظات التوصيل أو كارت الإهداء (اختياري)</label>
+                    <textarea id="custNotesInput" rows="2" placeholder="كتابة نص بطاقة الإهداء الملكية أو تعليمات لمندوب الشحن..." class="w-full p-3 rounded-xl border border-[#2A2421]/15 text-sm focus:outline-none focus:border-brand-gold"></textarea>
+                  </div>
+                </form>
+              </div>
+
+              <!-- 3. وسائل الدفع وتأكيد الحوالة (فودافون كاش، إنستاباي، تحويل بنكي) -->
+              <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-[#2A2421]/10 text-right space-y-6">
+                <div class="flex items-center gap-2 border-b border-[#2A2421]/10 pb-3">
+                  <span class="w-6 h-6 rounded-full bg-brand-gold text-brand-dark text-xs flex items-center justify-center font-bold">3</span>
+                  <h3 class="font-cairo font-bold text-lg text-brand-dark">طريقة الدفع وتأكيد الحوالة</h3>
+                </div>
+
+                <!-- أزرار اختيار وسيلة الدفع -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <!-- فودافون كاش -->
+                  <div 
+                    onclick="selectPaymentMethod('vodafone')" 
+                    id="payBtn-vodafone"
+                    class="cursor-pointer p-4 rounded-xl border-2 ${currentPaymentMethod === 'vodafone' ? 'border-brand-gold bg-brand-gold/10' : 'border-[#2A2421]/10 bg-white hover:border-brand-gold/40'} flex flex-col justify-between transition-all"
+                  >
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-xs font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded">Vodafone</span>
+                      <span class="w-3.5 h-3.5 rounded-full ${currentPaymentMethod === 'vodafone' ? 'bg-brand-gold' : 'border border-gray-300'}"></span>
+                    </div>
+                    <p class="text-xs font-bold text-brand-dark font-cairo">فودافون كاش</p>
+                    <p class="text-[11px] text-brand-secondary">محفظة إلكترونية فورية</p>
+                  </div>
+
+                  <!-- إنستاباي -->
+                  <div 
+                    onclick="selectPaymentMethod('instapay')" 
+                    id="payBtn-instapay"
+                    class="cursor-pointer p-4 rounded-xl border-2 ${currentPaymentMethod === 'instapay' ? 'border-brand-gold bg-brand-gold/10' : 'border-[#2A2421]/10 bg-white hover:border-brand-gold/40'} flex flex-col justify-between transition-all"
+                  >
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-xs font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded">InstaPay</span>
+                      <span class="w-3.5 h-3.5 rounded-full ${currentPaymentMethod === 'instapay' ? 'bg-brand-gold' : 'border border-gray-300'}"></span>
+                    </div>
+                    <p class="text-xs font-bold text-brand-dark font-cairo">إنستاباي (InstaPay)</p>
+                    <p class="text-[11px] text-brand-secondary">تحويل لحظي بالـ IPA</p>
+                  </div>
+
+                  <!-- تحويل بنكي -->
+                  <div 
+                    onclick="selectPaymentMethod('bank')" 
+                    id="payBtn-bank"
+                    class="cursor-pointer p-4 rounded-xl border-2 ${currentPaymentMethod === 'bank' ? 'border-brand-gold bg-brand-gold/10' : 'border-[#2A2421]/10 bg-white hover:border-brand-gold/40'} flex flex-col justify-between transition-all"
+                  >
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">CIB Bank</span>
+                      <span class="w-3.5 h-3.5 rounded-full ${currentPaymentMethod === 'bank' ? 'bg-brand-gold' : 'border border-gray-300'}"></span>
+                    </div>
+                    <p class="text-xs font-bold text-brand-dark font-cairo">تحويل بنكي</p>
+                    <p class="text-[11px] text-brand-secondary">حساب بنك CIB مصر</p>
+                  </div>
+                </div>
+
+                <!-- صندوق بيانات التحويل القابل للنسخ -->
+                <div id="paymentDetailsBox" class="p-4 rounded-2xl bg-[#FBF9F5] border border-[#2A2421]/10 space-y-3">
+                  ${renderPaymentInstructions()}
+                </div>
+
+                <!-- 4. مكان مخصص لرفع لقطة الشاشة لإيصال التحويل (Screenshot Upload) -->
+                <div class="space-y-3 pt-2">
+                  <div class="flex items-center justify-between">
+                    <label class="block text-xs font-bold text-brand-dark">
+                      إرفاق لقطة شاشة لإيصال التحويل (Screenshot) *
+                    </label>
+                    <span class="text-[11px] text-brand-secondary">لتوثيق حجز الطلب فورياً</span>
+                  </div>
+
+                  <input 
+                    type="file" 
+                    id="receiptFileInput" 
+                    accept="image/*" 
+                    class="hidden" 
+                    onchange="handleReceiptFile(event)"
+                  >
+
+                  <div 
+                    id="receiptDropArea"
+                    onclick="document.getElementById('receiptFileInput').click()"
+                    class="border-2 border-dashed border-[#2A2421]/20 hover:border-brand-gold rounded-2xl p-6 text-center bg-[#FBF9F5]/50 hover:bg-brand-gold/5 cursor-pointer transition-all relative overflow-hidden"
+                  >
+                    <div id="receiptPromptContent" class="${uploadedReceiptDataUrl ? 'hidden' : 'space-y-2'}">
+                      <div class="w-12 h-12 rounded-full bg-white mx-auto flex items-center justify-center text-brand-gold shadow-sm border border-[#2A2421]/5">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/>
+                        </svg>
+                      </div>
+                      <p class="text-xs sm:text-sm font-bold text-brand-dark font-cairo">اضغط لرفع لقطة الشاشة أو اسحب الصورة هنا</p>
+                      <p class="text-[11px] text-brand-secondary">يدعم صور JPG, PNG, JFIF حتى 10 ميجابايت</p>
+                    </div>
+
+                    <!-- معاينة الإيصال المرفوع -->
+                    <div id="receiptPreviewBox" class="${uploadedReceiptDataUrl ? 'flex' : 'hidden'} items-center justify-between gap-4">
+                      <div class="flex items-center gap-3">
+                        <img id="receiptPreviewThumb" src="${uploadedReceiptDataUrl || ''}" alt="إيصال التحويل" class="h-20 w-20 rounded-xl border border-brand-gold/40 object-cover shadow-sm">
+                        <div class="text-right">
+                          <div class="flex items-center gap-1.5 text-xs font-bold text-emerald-700">
+                            <span>✓</span>
+                            <span>تم تجهيز إيصال التحويل</span>
+                          </div>
+                          <p class="text-[11px] text-brand-secondary mt-0.5">جاهز للإرسال مع الطلب</p>
+                        </div>
+                      </div>
+                      <button 
+                        type="button" 
+                        onclick="event.stopPropagation(); removeReceiptImage()"
+                        class="px-3 py-1.5 rounded-lg bg-red-50 text-red-700 hover:bg-red-100 text-xs font-bold transition-colors"
+                      >
+                        تغيير الإيصال
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- العمود الأيسر: ملخص الحساب الثابت والزر النهائي -->
+            <div class="lg:col-span-5 sticky top-28 space-y-5">
+              <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-[#2A2421]/10 text-right space-y-4">
+                <h3 class="font-cairo font-bold text-lg text-brand-dark border-b border-[#2A2421]/10 pb-3">ملخص الحساب الملكي</h3>
+                
+                <div class="space-y-3 text-xs font-tajawal text-brand-secondary">
+                  <div class="flex justify-between items-center">
+                    <span>المجموع الفرعي:</span>
+                    <span class="font-bold text-brand-dark text-sm font-cairo">${total} ج.م</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span>الشحن الملكي السريع:</span>
+                    <span class="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">مجاني لكافة المدن</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span>صندوق الهدايا والتغليف الفاخر:</span>
+                    <span class="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">مشمول مجاناً</span>
+                  </div>
+                  <div class="pt-3 border-t border-[#2A2421]/10 flex justify-between items-center font-cairo text-lg font-extrabold text-brand-dark">
+                    <span>الإجمالي النهائي:</span>
+                    <span class="text-brand-gold text-2xl">${total} <span class="text-xs font-normal text-brand-dark">ج.م</span></span>
+                  </div>
+                </div>
+
+                <!-- كود الخصم الشكلي -->
+                <div class="pt-2">
+                  <div class="flex gap-2">
+                    <input type="text" id="voucherInput" placeholder="كود الخصم (اختياري)" class="flex-1 p-2.5 rounded-xl border border-[#2A2421]/15 text-xs text-brand-dark uppercase tracking-wider focus:outline-none focus:border-brand-gold">
+                    <button type="button" onclick="applyVoucher()" class="px-4 py-2.5 rounded-xl bg-brand-dark hover:bg-brand-gold hover:text-brand-dark text-white font-cairo text-xs font-bold transition-colors">
+                      تطبيق
+                    </button>
+                  </div>
+                  <div id="voucherMsg" class="text-[11px] text-emerald-700 font-bold mt-1 hidden">✓ تم تفعيل كود الخصم الملكي</div>
+                </div>
+
+                <button 
+                  type="button"
+                  onclick="document.getElementById('checkoutOrderForm').requestSubmit()"
+                  class="w-full py-4 rounded-xl bg-brand-gold hover:bg-brand-goldHover text-brand-dark font-cairo font-extrabold text-sm shadow-xl transition-all transform active:scale-98 flex items-center justify-center gap-2"
+                >
+                  <span>تأكيد الطلب الملكي الآن</span>
+                  <span>←</span>
+                </button>
+
+                <!-- مميزات الأمان والضمان -->
+                <div class="pt-4 border-t border-[#2A2421]/10 space-y-2 text-[11px] text-brand-secondary">
+                  <div class="flex items-center gap-2">
+                    <span class="text-brand-gold">🛡️</span>
+                    <span>ضمان ذهبي للأصالة 100% وإمكانية الفحص عند الاستلام.</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-brand-gold">⚡</span>
+                    <span>تجهيز الشحنة والتوصيل خلال 24-48 ساعة لجميع المحافظات.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- نافذة النجاح (Modal) -->
+        <div id="checkoutSuccessModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs hidden">
+          <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl text-center space-y-5 border border-brand-gold/30">
+            <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 text-3xl flex items-center justify-center mx-auto font-bold">✓</div>
+            <h3 class="font-cairo text-2xl font-bold text-brand-dark">تم تأكيد طلبك الملكي بنجاح!</h3>
+            <p class="text-xs text-brand-secondary font-tajawal leading-relaxed">
+              شكراً لاختياركم دار VoltEdge للعطور الفاخرة. رقم طلبكم هو: <br>
+              <span id="modalOrderNo" class="font-bold text-brand-gold text-lg font-mono">#VE-2026-881</span>
+            </p>
+            <div class="p-3 rounded-xl bg-[#FBF9F5] border border-[#2A2421]/10 text-xs text-brand-dark space-y-1">
+              <div>طريقة الدفع: <span id="modalPayMethod" class="font-bold">فودافون كاش</span></div>
+              <div class="text-emerald-700 font-bold">✓ تم توثيق إيصال التحويل المرفق</div>
+            </div>
+            <p class="text-[11px] text-brand-secondary">
+              سيتواصل معكم مستشار العطور الملكي لتأكيد موعد استلام الشحنة الفاخرة.
+            </p>
+            <button 
+              onclick="finishOrderModal()"
+              class="w-full py-3.5 rounded-xl bg-brand-dark hover:bg-brand-gold hover:text-brand-dark text-white font-cairo font-bold text-xs transition-colors"
+            >
+              العودة للرئيسية
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderPaymentInstructions() {
+      if (currentPaymentMethod === 'vodafone') {
+        return `
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-brand-secondary">رقم محفظة فودافون كاش الرسمية:</span>
+            <div class="flex items-center gap-2">
+              <span class="text-sm font-bold text-brand-dark font-mono dir-ltr select-all">010 9876 5432</span>
+              <button type="button" onclick="copyPaymentText('01098765432', this)" class="px-2 py-1 bg-white border border-[#2A2421]/15 text-[10px] font-bold rounded hover:bg-brand-gold hover:text-white transition-colors">نسخ</button>
+            </div>
+          </div>
+          <p class="text-xs text-brand-secondary leading-relaxed">
+            يرجى تحويل قيمة الطلب الإجمالية إلى الرقم أعلاه عبر محفظة فودافون كاش، ثم التقاط لقطة شاشة لرسالة التأكيد ورفعها بالأسفل.
+          </p>
+        `;
+      } else if (currentPaymentMethod === 'instapay') {
+        return `
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-brand-secondary">عنوان الدفع اللحظي (IPA):</span>
+            <div class="flex items-center gap-2">
+              <span class="text-sm font-bold text-brand-dark font-mono dir-ltr select-all">voltedge@instapay</span>
+              <button type="button" onclick="copyPaymentText('voltedge@instapay', this)" class="px-2 py-1 bg-white border border-[#2A2421]/15 text-[10px] font-bold rounded hover:bg-brand-gold hover:text-white transition-colors">نسخ</button>
+            </div>
+          </div>
+          <p class="text-xs text-brand-secondary leading-relaxed">
+            افتح تطبيق InstaPay وأرسل المبلغ للعنوان أعلاه، ثم التقط لقطة شاشة لإشعار نجاح المعاملة وارفعها بالأسفل.
+          </p>
+        `;
+      } else {
+        return `
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-brand-secondary">رقم الآيبان (CIB Bank Egypt):</span>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold text-brand-dark font-mono dir-ltr select-all">EG120000000001234567890</span>
+              <button type="button" onclick="copyPaymentText('EG120000000001234567890', this)" class="px-2 py-1 bg-white border border-[#2A2421]/15 text-[10px] font-bold rounded hover:bg-brand-gold hover:text-white transition-colors">نسخ</button>
+            </div>
+          </div>
+          <p class="text-xs text-brand-secondary leading-relaxed">
+            اسم الحساب: دار فولت إيدج للتجارة - البنك التجاري الدولي (CIB). يُرجى إرفاق إشعار التحويل البنكي بالأسفل.
+          </p>
+        `;
+      }
+    }
+
+    function selectPaymentMethod(method) {
+      currentPaymentMethod = method;
+      const box = document.getElementById('paymentDetailsBox');
+      if (box) box.innerHTML = renderPaymentInstructions();
+
+      ['vodafone', 'instapay', 'bank'].forEach(m => {
+        const btn = document.getElementById(`payBtn-${m}`);
+        if (btn) {
+          if (m === method) {
+            btn.className = 'cursor-pointer p-4 rounded-xl border-2 border-brand-gold bg-brand-gold/10 flex flex-col justify-between transition-all';
+            const dot = btn.querySelector('.rounded-full:last-child');
+            if (dot) dot.className = 'w-3.5 h-3.5 rounded-full bg-brand-gold';
+          } else {
+            btn.className = 'cursor-pointer p-4 rounded-xl border-2 border-[#2A2421]/10 bg-white hover:border-brand-gold/40 flex flex-col justify-between transition-all';
+            const dot = btn.querySelector('.rounded-full:last-child');
+            if (dot) dot.className = 'w-3.5 h-3.5 rounded-full border border-gray-300';
+          }
+        }
+      });
+    }
+
+    function copyPaymentText(text, btn) {
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.textContent;
+        btn.textContent = 'تم النسخ!';
+        btn.classList.add('bg-brand-gold', 'text-white');
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.classList.remove('bg-brand-gold', 'text-white');
+        }, 1800);
+      });
+    }
+
+    function handleReceiptFile(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        uploadedReceiptDataUrl = evt.target.result;
+        const promptEl = document.getElementById('receiptPromptContent');
+        const previewEl = document.getElementById('receiptPreviewBox');
+        const thumbEl = document.getElementById('receiptPreviewThumb');
+        if (promptEl) promptEl.classList.add('hidden');
+        if (previewEl) previewEl.classList.remove('hidden');
+        if (thumbEl) thumbEl.src = uploadedReceiptDataUrl;
+        showToast('تم إرفاق إيصال التحويل بنجاح');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removeReceiptImage() {
+      uploadedReceiptDataUrl = null;
+      const promptEl = document.getElementById('receiptPromptContent');
+      const previewEl = document.getElementById('receiptPreviewBox');
+      const input = document.getElementById('receiptFileInput');
+      if (input) input.value = '';
+      if (promptEl) promptEl.classList.remove('hidden');
+      if (previewEl) previewEl.classList.add('hidden');
+    }
+
+    function applyVoucher() {
+      const inp = document.getElementById('voucherInput');
+      const msg = document.getElementById('voucherMsg');
+      if (inp && msg) {
+        if (inp.value.trim().length > 0) {
+          msg.classList.remove('hidden');
+          showToast('تم تطبيق كود الخصم بنجاح');
+        }
+      }
+    }
+
+    function renderCartPage() {
+      const container = document.getElementById('app-view');
+      if (container) container.innerHTML = templateCart();
+    }
+
+    function handleFinalCheckout(e) {
+      e.preventDefault();
+      const modal = document.getElementById('checkoutSuccessModal');
+      const orderNo = document.getElementById('modalOrderNo');
+      const payMethodLabel = document.getElementById('modalPayMethod');
+      if (orderNo) orderNo.textContent = '#VE-2026-' + Math.floor(100000 + Math.random() * 900000);
+      if (payMethodLabel) {
+        const labels = { vodafone: 'فودافون كاش', instapay: 'إنستاباي', bank: 'تحويل بنكي' };
+        payMethodLabel.textContent = labels[currentPaymentMethod] || currentPaymentMethod;
+      }
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function finishOrderModal() {
+      cart = [];
+      uploadedReceiptDataUrl = null;
+      saveCart();
+      window.location.hash = '#/home';
+    }
+
+    // ═════════════════ التوجيه والتنقل (Hash Router) ═════════════════
+    const ROUTES = {
+      '#/home': templateHome,
+      '#/men': templateMen,
+      '#/women': templateWomen,
+      '#/oud': templateOud,
+      '#/exclusive': templateExclusive,
+      '#/cart': templateCart
+    };
+
+    function navigate() {
+      let hash = window.location.hash || '#/home';
+      if (!ROUTES[hash]) hash = '#/home';
+
+      const container = document.getElementById('app-view');
+      if (!container) return;
+
+      container.classList.remove('page-fade');
+      void container.offsetWidth; // إعادة تشغيل الأنيميشن
+      container.classList.add('page-fade');
+
+      container.innerHTML = ROUTES[hash]();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // تلوين الرابط النشط بخط ذهبي سفلي
+      document.querySelectorAll('.nav-link').forEach(link => {
+        if (link.getAttribute('data-nav') === hash) {
+          link.classList.remove('border-transparent');
+          link.classList.add('border-brand-gold', 'text-brand-gold');
+        } else {
+          link.classList.remove('border-brand-gold', 'text-brand-gold');
+          link.classList.add('border-transparent');
+        }
+      });
+
+      // إغلاق قائمة الموبايل عند التنقل
+      closeMobileMenu();
+    }
+
+    window.addEventListener('hashchange', navigate);
+
+    // ═════════════════ تصفية وترتيب الكتالوج ═════════════════
+    let currentCatalogState = {
+      men: { filter: 'all', sort: 'default' },
+      women: { filter: 'all', sort: 'default' }
+    };
+
+    function filterCatalog(catalog, filter) {
+      currentCatalogState[catalog].filter = filter;
+      applyCatalogView(catalog);
+      
+      const bar = document.getElementById(`${catalog}FilterBar`);
+      if (bar) {
+        bar.querySelectorAll(`button`).forEach(btn => {
+          btn.className = btn.getAttribute('onclick').includes(`'${filter}'`)
+            ? `filter-btn-${catalog} px-4 py-2 rounded-xl text-xs font-bold font-cairo bg-brand-gold text-brand-dark transition-all`
+            : `filter-btn-${catalog} px-4 py-2 rounded-xl text-xs font-bold font-cairo bg-white border border-[#2A2421]/10 text-brand-dark hover:border-brand-gold transition-all`;
+        });
+      }
+    }
+
+    function sortCatalog(catalog, sortVal) {
+      currentCatalogState[catalog].sort = sortVal;
+      applyCatalogView(catalog);
+    }
+
+    function applyCatalogView(catalog) {
+      const grid = document.getElementById(`${catalog}CatalogGrid`);
+      if (!grid) return;
+      let list = [...PRODUCTS[catalog]];
+
+      const filter = currentCatalogState[catalog].filter;
+      if (filter !== 'all') {
+        list = list.filter(item => item.category === filter);
+      }
+
+      const sort = currentCatalogState[catalog].sort;
+      if (sort === 'price-asc') list.sort((a, b) => a.price - b.price);
+      else if (sort === 'price-desc') list.sort((a, b) => b.price - a.price);
+
+      grid.innerHTML = list.map(renderProductCard).join('');
+    }
+
+    // ═════════════════ قائمة الموبايل ═════════════════
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const closeMobileBtn = document.getElementById('closeMobileBtn');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const mobilePanel = document.getElementById('mobilePanel');
+
+    function openMobileMenu() {
+      if (!mobileDrawer || !mobilePanel) return;
+      mobileDrawer.classList.remove('opacity-0', 'pointer-events-none');
+      mobilePanel.classList.remove('translate-x-full');
+    }
+
+    function closeMobileMenu() {
+      if (!mobileDrawer || !mobilePanel) return;
+      mobilePanel.classList.add('translate-x-full');
+      setTimeout(() => mobileDrawer.classList.add('opacity-0', 'pointer-events-none'), 300);
+    }
+
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobileMenu);
+    if (closeMobileBtn) closeMobileBtn.addEventListener('click', closeMobileMenu);
+    if (mobileDrawer) mobileDrawer.addEventListener('click', (e) => {
+      if (e.target === mobileDrawer) closeMobileMenu();
+    });
+
+    // ═════════════════ العداد التنازلي التفاعلي ═════════════════
+    setInterval(() => {
+      const s = document.getElementById('cdSecs');
+      if (s) {
+        let sec = parseInt(s.textContent, 10) - 1;
+        if (sec < 0) sec = 59;
+        s.textContent = sec.toString().padStart(2, '0');
+      }
+    }, 1000);
+
+    // التشغيل المبدئي
+    updateCartBadges();
+    if (!window.location.hash) window.location.hash = '#/home';
+    navigate();
+  </script>
+</body>
+</html>
